@@ -1,14 +1,8 @@
-from map_generator import PharmacyMapGenerator
+from flask import render_template
+from models import Work, User
 
 
-def main():
-    generator = PharmacyMapGenerator(YANDEX_MAPS_API_KEY)
-
-    address = input("Введите адрес для поиска аптек рядом: ")
-
-    output_file = generator.generate_map(address)
-    print(f"Карта сохранена в файл: {output_file}")
-
-
-if __name__ == "__main__":
-    main()
+@app.route('/works')
+def work_list():
+    works = Work.query.all()  # Предполагается, что у вас есть модель Work
+    return render_template('work_list.html', works=works)
